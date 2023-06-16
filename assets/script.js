@@ -21,40 +21,58 @@ const slides = [
 const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const bannerImage = document.querySelector(".banner-img");
-const bannerText = document.querySelector(".banner-img p");
-
+const bannerText = document.querySelector("p");
+const containerDots = document.querySelector(".dots");
 const nbSlides = slides.length;
-let currentIndex = 1;
+let index = 0;
 
 // Event on click on the Left arrow
 arrowLeft.addEventListener("click", previousSlide);
+
 // Event on click on the Right arrow
 arrowRight.addEventListener("click", nextSlide);
 
-// Création des Dots
-const dots = document.querySelector(".dots");
-for (let i = 1; i < nbSlides; i++) {
+// Création des div dot en fonction du nombre d'objet dans le tableau
+for (let i = 0; i < nbSlides; i++) {
   const dot = document.createElement("div"); /*creation div dot */
   dot.className = "dot"; /*donne la class dot à ma div*/
-  dots.appendChild(dot); /* Liée à l'élément parent avec l'élément enfant*/
-  // showSlide(i);
+  containerDots.appendChild(dot); /* Liée à l'élément parent avec l'élément enfant*/
 }
 
+// sélection de tous les éléments avec la class .dot
+const dot = document.querySelectorAll(".dot");
+// ajout class point sélectionné au premier bullet-point
+dot[0].classList.add("dot_selected");
+
+function showSlide() {
+  bannerImage.src = "./assets/images/slideshow/" + slides[index].image;
+  bannerText.innerHTML = slides[index].tagLine;
+  dot[index].classList.add("dot_selected");
+}
+
+// Fonction pour supprimer la bullet-point sélectionné
+function removeClass() {
+  dot[index].classList.remove("dot_selected");
+}
+
+const lastSlide = slides.length - 1;
+
 function previousSlide() {
-  if (currentIndex <= 1) currentIndex = 4;
-  else currentIndex--;
-  // bannerImage.src = `./assets/images/slideshow/slide${currentIndex}.jpg`;
-  showSlide(currentIndex);
+  removeClass();
+  if (index === 0) {
+    index = lastSlide;
+  } else {
+    index--;
+  }
+  showSlide();
 }
 
 function nextSlide() {
-  if (currentIndex >= 4) currentIndex = 1;
-  else currentIndex++;
-  showSlide(currentIndex);
-}
-
-function showSlide(currentIndex) {
-  // bannerImage.src = `./assets/images/slideshow/${slides[i].image}`;
-  bannerImage.src = `./assets/images/slideshow/slide${currentIndex}.jpg`;
-  // bannerText.innerHTML = slides[i].tagLine;
+  removeClass();
+  if (index === lastSlide) {
+    index = 0;
+  } else {
+    index++;
+  }
+  showSlide();
 }
