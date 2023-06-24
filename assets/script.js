@@ -1,9 +1,9 @@
 const slides = [
-  {
+  { // slide[0]
     image: "slide1.jpg",
     tagLine: "Impressions tous formats <span>en boutique et en ligne</span>",
   },
-  {
+  { // slide[1]
     image: "slide2.jpg",
     tagLine:
       "Tirages haute définition grand format <span>pour vos bureaux et events</span>",
@@ -26,14 +26,17 @@ const containerDots = document.querySelector(".dots");
 const nbSlides = slides.length;
 let index = 0;
 
+// arrowLeft.addEventListener("click", () => console.log("Flèche de gauche cliquée"))
+// arrowRight.addEventListener("click", () => console.log("Flèche de droite cliquée"))
+
 // Event on click on the Left arrow
 arrowLeft.addEventListener("click", previousSlide);
 
 // Event on click on the Right arrow
 arrowRight.addEventListener("click", nextSlide);
 
-// Création des div dot en fonction du nombre d'objet dans le tableau
-for (let i = 0; i < nbSlides; i++) {
+// Création des div dot (4 points) en fonction du nombre d'objet dans le tableau
+for (let i = 0; i < nbSlides; i++) { // i = 0 ; i = 1 ; i = 2 ; i = 3 
   const dot = document.createElement("div"); /*creation div dot */
   dot.className = "dot"; /*donne la class dot à ma div*/
   containerDots.appendChild(dot); /* Liée à l'élément parent avec l'élément enfant*/
